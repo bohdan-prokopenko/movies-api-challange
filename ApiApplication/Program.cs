@@ -1,30 +1,21 @@
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace ApiApplication
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
+namespace ApiApplication {
+    public class Program {
+        public static void Main(string[] args) {
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.ConfigureLogging(options =>
-                    {
-                        options.AddConsole();
+        public static IHostBuilder CreateHostBuilder(string[] args) {
+            return Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder => {
+                    _ = webBuilder.ConfigureLogging(options => {
+                        _ = options.AddConsole();
                     });
-                    webBuilder.UseStartup<Startup>();                    
+                    _ = webBuilder.UseStartup<Startup>();
                 });
+        }
     }
 }

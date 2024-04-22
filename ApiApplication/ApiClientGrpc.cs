@@ -1,29 +1,26 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
-using Grpc.Net.Client;
+﻿using Grpc.Net.Client;
+
 using ProtoDefinitions;
 
-namespace ApiApplication
-{
-    public class ApiClientGrpc
-    {
-        public async Task<showListResponse> GetAll()
-        {
-            var httpHandler = new HttpClientHandler
-            {
+using System.Net.Http;
+using System.Threading.Tasks;
+
+namespace ApiApplication {
+    public class ApiClientGrpc {
+        public async Task<showListResponse> GetAll() {
+            var httpHandler = new HttpClientHandler {
                 ServerCertificateCustomValidationCallback =
                     HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
             };
 
             var channel =
-                GrpcChannel.ForAddress("https://localhost:7443", new GrpcChannelOptions()
-                {
+                GrpcChannel.ForAddress("https://localhost:7443", new GrpcChannelOptions() {
                     HttpHandler = httpHandler
                 });
             var client = new MoviesApi.MoviesApiClient(channel);
 
-            var all = await client.GetAllAsync(new Empty());
-            all.Data.TryUnpack<showListResponse>(out var data);
+            responseModel all = await client.GetAllAsync(new Empty());
+            _ = all.Data.TryUnpack<showListResponse>(out showListResponse data);
             return data;
         }
     }

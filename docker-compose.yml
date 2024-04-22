@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  apiapplication:
+    image: ${DOCKER_REGISTRY-}apiapplication
+    build:
+      context: .
+      dockerfile: ApiApplication/Dockerfile
+    ports:
+      - "7172:80"
+      - "7443:443"
+    environment:      
+      - ASPNETCORE_ENVIRONMENT=Development
+  cache:
+    image: "redis"
+    restart: unless-stopped
+    ports:
+      - "6379:6379"

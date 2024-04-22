@@ -1,4 +1,4 @@
-﻿using ApiApplication.Database.Entities;
+﻿using ApiApplication.Domain.Entities;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,5 +1,5 @@
-﻿using ApiApplication.Database.Entities;
-using ApiApplication.Database.Repositories.Abstractions;
+﻿using ApiApplication.Domain.Entities;
+using ApiApplication.Domain.Repositories;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ApiApplication.Database.Repositories {
     public class AuditoriumsRepository : IAuditoriumsRepository {
         private readonly CinemaContext _context;
-
+         
         public AuditoriumsRepository(CinemaContext context) {
             _context = context;
         }

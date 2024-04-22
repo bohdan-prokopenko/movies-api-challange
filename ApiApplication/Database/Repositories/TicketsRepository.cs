@@ -1,5 +1,5 @@
-﻿using ApiApplication.Database.Entities;
-using ApiApplication.Database.Repositories.Abstractions;
+﻿using ApiApplication.Domain.Entities;
+using ApiApplication.Domain.Repositories;
 
 using Microsoft.EntityFrameworkCore;
 

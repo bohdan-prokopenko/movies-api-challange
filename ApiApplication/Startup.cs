@@ -1,6 +1,6 @@
 using ApiApplication.Database;
 using ApiApplication.Database.Repositories;
-using ApiApplication.Database.Repositories.Abstractions;
+using ApiApplication.Domain.Repositories;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,36 +20,29 @@ namespace ApiApplication {
             get;
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            _ = services.AddTransient<IShowtimesRepository, ShowtimesRepository>();
-            _ = services.AddTransient<ITicketsRepository, TicketsRepository>();
-            _ = services.AddTransient<IAuditoriumsRepository, AuditoriumsRepository>();
-
-            _ = services.AddDbContext<CinemaContext>(options => {
-                _ = options.UseInMemoryDatabase("CinemaDb")
-                    .EnableSensitiveDataLogging()
-                    .ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning));
-            });
-            _ = services.AddControllers();
-            _ = services.AddHttpClient();
+            _ = services.AddTransient<IShowtimesRepository, ShowtimesRepository>()
+                .AddTransient<ITicketsRepository, TicketsRepository>()
+                .AddTransient<IAuditoriumsRepository, AuditoriumsRepository>()
+                .AddHttpClient()
+                .AddDbContext<CinemaContext>(options => {
+                    _ = options.UseInMemoryDatabase("CinemaDb")
+                        .EnableSensitiveDataLogging()
+                        .ConfigureWarnings(b => b.Ignore(InMemoryEventId.TransactionIgnoredWarning));
+                }).AddControllers();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
             if (env.IsDevelopment()) {
                 _ = app.UseDeveloperExceptionPage();
             }
 
-            //_ = app.UseHttpsRedirection();
-
-            _ = app.UseRouting();
-
-            //_ = app.UseAuthorization();
-
-            _ = app.UseEndpoints(endpoints => {
-                _ = endpoints.MapControllers();
-            });
+            _ = app.UseHttpsRedirection()
+                .UseRouting()
+                .UseAuthorization()
+                .UseEndpoints(endpoints => {
+                    _ = endpoints.MapControllers();
+                });
         }
     }
 }

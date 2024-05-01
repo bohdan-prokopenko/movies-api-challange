@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 namespace ApiApplication.Controllers {
     [Route("api/auditorium/{auditoriumId}/movies/{movieId}/[controller]")]
     [ApiController]
-    public class ShowTimeController : ControllerBase {
+    public class ShowTimesController : ControllerBase {
         private readonly ICreateShowTimeUseCase _createShowTimeUseCase;
 
-        public ShowTimeController(ICreateShowTimeUseCase createShowTimeUseCase) {
+        public ShowTimesController(ICreateShowTimeUseCase createShowTimeUseCase) {
             _createShowTimeUseCase = createShowTimeUseCase;
         }
 

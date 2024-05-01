@@ -1,2 +1,7 @@
 Please add the cURLs of your tests here:
 
+curl --location 'https://localhost:8090/api/auditorium/1/movies/ID-test1/showtime' \
+--header 'accept: application/json' \
+--header 'Content-Type: application/json' \
+--header 'X-Apikey: 68e5fbda-9ec9-4858-97b2-4a8349764c63' \
+--data '"2024-04-28T15:30:00"'

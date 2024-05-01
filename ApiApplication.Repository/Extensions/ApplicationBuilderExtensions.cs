@@ -1,4 +1,5 @@
 ﻿using ApiApplication.Domain.Entities;
+using ApiApplication.Repository.Context;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -6,9 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 
-namespace ApiApplication.Database {
-    public class SampleData {
-        public static void Initialize(IApplicationBuilder app) {
+namespace ApiApplication.Repository.Extensions {
+    public static class ApplicationBuilderExtensions {
+        public static IApplicationBuilder UseSampleData(this IApplicationBuilder app) {
             using IServiceScope serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
             CinemaContext context = serviceScope.ServiceProvider.GetService<CinemaContext>();
             _ = context.Database.EnsureCreated();
@@ -46,6 +47,7 @@ namespace ApiApplication.Database {
             });
 
             _ = context.SaveChanges();
+            return app;
         }
 
         private static List<SeatEntity> GenerateSeats(int auditoriumId, short rows, short seatsPerRow) {

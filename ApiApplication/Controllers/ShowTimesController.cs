@@ -1,5 +1,6 @@
 ﻿using ApiApplication.Domain.Entities;
 using ApiApplication.Domain.UseCases;
+using ApiApplication.Requests;
 using ApiApplication.Responses;
 
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace ApiApplication.Controllers {
-    [Route("api/auditorium/{auditoriumId}/movies/{movieId}/[controller]")]
+    [Route("api/auditorium/{auditoriumId}/[controller]")]
     [ApiController]
     public class ShowTimesController : ControllerBase {
         private readonly ICreateShowTimeUseCase _createShowTimeUseCase;
@@ -19,8 +20,8 @@ namespace ApiApplication.Controllers {
         }
 
         [HttpPost]
-        public async Task<ActionResult<CreateShowTimeResponseDto>> CreateShowtime([FromRoute] int auditoriumId, [FromRoute] string movieId, [FromBody] DateTime sessionDate, CancellationToken token) {
-            ShowtimeEntity showtime = await _createShowTimeUseCase.Execute(auditoriumId, movieId, sessionDate, token).ConfigureAwait(false);
+        public async Task<ActionResult<CreateShowTimeResponseDto>> CreateShowtime([FromRoute] int auditoriumId, [FromBody] CreateShowtimeRequest request, CancellationToken token) {
+            ShowtimeEntity showtime = await _createShowTimeUseCase.Execute(auditoriumId, request.MovieId, request.SessionDate, token).ConfigureAwait(false);
             return new CreateShowTimeResponseDto(showtime);
         }
     }

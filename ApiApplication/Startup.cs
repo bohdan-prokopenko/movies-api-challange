@@ -1,15 +1,14 @@
 using ApiApplication.Caching.Extensions;
+using ApiApplication.Client.Extensions;
+using ApiApplication.Conventions;
 using ApiApplication.Domain.Extensions;
 using ApiApplication.Middleware;
 using ApiApplication.Repository.Extensions;
-using ApiApplication.Client.Extensions;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using ApiApplication.Conventions;
 
 namespace ApiApplication {
     public class Startup {
@@ -40,10 +39,6 @@ namespace ApiApplication {
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
             _ = app.UseMiddleware<ErrorHandlingMiddleware>()
                 .UseMiddleware<RequestTimeMiddleware>();
-
-            if (env.IsDevelopment()) {
-                _ = app.UseDeveloperExceptionPage();
-            }
 
             _ = app.UseHttpsRedirection()
                 .UseRouting()

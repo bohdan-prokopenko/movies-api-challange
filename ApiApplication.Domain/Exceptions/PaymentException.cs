@@ -3,7 +3,7 @@
 namespace ApiApplication.Domain.Exceptions {
 
     [Serializable]
-    internal class PaymentException : DomainException {
+    public class PaymentException : DomainException {
         public PaymentException() {
         }
         public PaymentException(string message) : base(message) { }

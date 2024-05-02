@@ -20,7 +20,6 @@ namespace ApiApplication.Domain.UseCases {
         }
 
         public async Task<ShowtimeEntity> Execute(int auditoriumId, string movieId, DateTime sessionDate, CancellationToken cancel) {
-            try {
                 MovieEntity movie = await _moviesRepository.GetByExternalIdAsync(movieId, cancel).ConfigureAwait(false);
 
                 if (movie != null) {
@@ -29,13 +28,7 @@ namespace ApiApplication.Domain.UseCases {
 
                 movie = await _moviesApi.GetById(movieId) ?? throw new EntityNotFoundException(movieId, nameof(MovieEntity));
                 movie = await _moviesRepository.CreateAsync(movie).ConfigureAwait(false);
-
                 return await SaveShowtime(auditoriumId, movie, sessionDate, cancel);
-            } catch (EntityNotFoundException ex) {
-                throw ex;
-            } catch (Exception) {
-                throw new DomainException("Can't create Showtime");
-            }
         }
 
         private async Task<ShowtimeEntity> SaveShowtime(int auditoriumId, MovieEntity movie, DateTime sessionDate, CancellationToken cancel) {

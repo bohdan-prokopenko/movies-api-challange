@@ -9,7 +9,6 @@ using NUnit.Framework;
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,7 +25,7 @@ namespace ApiApplication.Domain.Tests.UseCases {
         }
 
         [Test(Description = "When reservation not found should throw EntityNotFoundException")]
-        public void ExecuteTest2() {
+        public void WhenReservationNotFound_ShouldThrowEntityNotFoundException() {
             var seats = new List<SeatEntity>() {
                 new SeatEntity {
                     Row = 1,
@@ -51,7 +50,7 @@ namespace ApiApplication.Domain.Tests.UseCases {
         }
 
         [Test(Description = "When reservation has been already paid should throw PaymentException")]
-        public void ExecuteTest3() {
+        public void WhenReservationPaid_ShouldThrowPaymentException() {
             var seats = new List<SeatEntity>() {
                 new SeatEntity {
                     Row = 1,
@@ -79,7 +78,7 @@ namespace ApiApplication.Domain.Tests.UseCases {
         }
 
         [Test(Description = "When reservation has been expired should throw PaymentException")]
-        public void ExecuteTest4() {
+        public void WhenReservationExpired_ShouldThrowPaymentException() {
             var seats = new List<SeatEntity>() {
                 new SeatEntity {
                     Row = 1,
@@ -107,7 +106,7 @@ namespace ApiApplication.Domain.Tests.UseCases {
         }
 
         [Test(Description = "Reservation should be confirmed successfully")]
-        public async Task ExecuteTest5() {
+        public async Task ExecuteTest() {
             var seats = new List<SeatEntity>() {
                 new SeatEntity {
                     Row = 1,

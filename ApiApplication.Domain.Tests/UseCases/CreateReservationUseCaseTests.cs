@@ -29,8 +29,8 @@ namespace ApiApplication.Domain.Tests.UseCases {
             _createReservationUseCase = new CreateReservationUseCase(_auditoriumsRepositoryMock.Object, _ticketsRepositoryMock.Object, _showtimesRepositoryMock.Object);
         }
 
-        [Test(Description = "When seats are not exist in auditorium should throw EntityNotFoundException")]
-        public void ExecuteTest2() {
+        [Test(Description = "When povided seat numbers are not exist in auditorium should throw EntityNotFoundException")]
+        public void WhenSeatsDoesNotExist_ShouldThrowEntityNotFoundException() {
             var seats = new List<SeatEntity>() {
                 new SeatEntity {
                     Row = 1,
@@ -58,7 +58,7 @@ namespace ApiApplication.Domain.Tests.UseCases {
         }
 
         [Test(Description = "When seats are not contiguous should throw ReservationException")]
-        public void ExecuteTest3() {
+        public void WhenSeatsAreNotContiguous_ShouldThrowReservationException() {
             var seats = new List<SeatEntity>() {
                 new SeatEntity {
                     Row = 1,
@@ -89,7 +89,7 @@ namespace ApiApplication.Domain.Tests.UseCases {
         }
 
         [Test(Description = "When showtime doesn't exist should throw EntityNotFoundException")]
-        public void ExecuteTest4() {
+        public void WhenShowTimeDoesNotExist_ShouldThrowEntityNotFoundException() {
             var seats = new List<SeatEntity>() {
                 new SeatEntity {
                     Row = 1,
@@ -123,7 +123,7 @@ namespace ApiApplication.Domain.Tests.UseCases {
         }
 
         [Test(Description = "When seats contains already reserved seat should throw ReservationException")]
-        public void ExecuteTest5() {
+        public void WhenRequestedSeatsReserved_ShouldThrowReservationException() {
             var seats = new List<SeatEntity>() {
                 new SeatEntity {
                     Row = 1,
@@ -165,7 +165,7 @@ namespace ApiApplication.Domain.Tests.UseCases {
         }
 
         [Test(Description = "Should create reservation")]
-        public async Task ExecuteTest6() {
+        public async Task ExecuteTest() {
             var seats = new List<SeatEntity>() {
                 new SeatEntity {
                     Row = 1,

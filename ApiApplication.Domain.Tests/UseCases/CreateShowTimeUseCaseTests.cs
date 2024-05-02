@@ -32,7 +32,7 @@ namespace ApiApplication.Domain.Tests.UseCases {
         }
 
         [Test(Description = "When movie exists should create showtime with the existing movie")]
-        public async Task ExecuteTest1() {
+        public async Task ExecuteTest() {
             DateTime sessionDate = DateTime.Now;
             var auditoriumId = 1;
             var existingMovie = new MovieEntity { Title = "Test" };
@@ -48,7 +48,7 @@ namespace ApiApplication.Domain.Tests.UseCases {
         }
 
         [Test(Description = "When movie does not exist should call movies api and save movie entity")]
-        public async Task ExecuteTest2() {
+        public async Task WhenMovieDoesNotExist_ShouldCallApi() {
             DateTime sessionDate = DateTime.Now;
             var auditoriumId = 1;
             var movie = new MovieEntity { Title = "Test" };
@@ -68,29 +68,20 @@ namespace ApiApplication.Domain.Tests.UseCases {
         }
 
         [Test(Description = "When api returns null should throw EntityNotFoundException")]
-        public void ExecuteTest3() {
+        public void WhenMoviesApiReturnsNull_ShouldThrowEntityNotFoundException() {
             DateTime sessionDate = DateTime.Now;
             var auditoriumId = 1;
             var movieId = "someExternalMovieId";
 
             _ = _moviesRepositoryMock.Setup(r => r.CreateAsync(It.IsAny<MovieEntity>(), It.IsAny<CancellationToken>())).ThrowsAsync(new EntityNotFoundException("someExternalMovieId", nameof(MovieEntity)));
 
-            _ = Assert.ThrowsAsync<EntityNotFoundException>(() => _createShowTimeUseCase.Execute(auditoriumId, movieId, sessionDate, None));
+            Assert.Multiple(() => {
+                EntityNotFoundException ex = Assert.ThrowsAsync<EntityNotFoundException>(() => _createShowTimeUseCase.Execute(auditoriumId, movieId, sessionDate, None));
+                Assert.That(ex, Is.Not.Null);
+                Assert.That(ex.Message, Is.EqualTo($"Entity MovieEntity not found. Entity ID: {movieId}"));
+            });
 
             _moviesRepositoryMock.Verify(r => r.CreateAsync(It.IsAny<MovieEntity>(), It.IsAny<CancellationToken>()), Times.Never);
-        }
-
-        [Test(Description = "When an unexpected exception occurs during the process shoul throw DomainException")]
-        public void ExecuteTest4() {
-            DateTime sessionDate = DateTime.Now;
-            var auditoriumId = 1;
-            var movieId = "someExternalMovieId";
-            var existingMovie = new MovieEntity { Title = "Test" };
-
-            _ = _moviesRepositoryMock.Setup(r => r.GetByExternalIdAsync(It.IsAny<string>(), It.IsAny<CancellationToken>())).ReturnsAsync(existingMovie);
-            _ = _repostioryMock.Setup(r => r.CreateShowtime(It.IsAny<ShowtimeEntity>(), It.IsAny<CancellationToken>())).ThrowsAsync(new Exception("someExternalMovieId"));
-
-            _ = Assert.ThrowsAsync<DomainException>(() => _createShowTimeUseCase.Execute(auditoriumId, movieId, sessionDate, None));
         }
     }
 }

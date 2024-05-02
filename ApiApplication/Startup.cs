@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+using System.Net;
+
 namespace ApiApplication {
     public class Startup {
         public Startup(IConfiguration configuration) {
@@ -22,13 +24,14 @@ namespace ApiApplication {
 
         public void ConfigureServices(IServiceCollection services) {
             IConfigurationSection redisConfig = Configuration.GetSection("RedisCacheOptions");
+            IConfigurationSection grpcConfig = Configuration.GetSection("gRPC");
             _ = services
                     .AddUseCases()
                     .AddCaching(builder => builder.Configuration(redisConfig.GetValue<string>("Configuration"))
                         .Instance(redisConfig.GetValue<string>("Instance"))
                         .Build())
-                    .AddRepository()
-                    .AddMoviesApiClient()
+            .AddRepository()
+                    .AddMoviesGrpcApiClient(builder => builder.Address(grpcConfig.GetValue<string>("Address")).ApiKey(grpcConfig.GetValue<string>("ApiKey")).Build())
                     .AddControllersWithViews(options =>
                     {
                         options.Conventions.Add(new DynamicRouteConvention());

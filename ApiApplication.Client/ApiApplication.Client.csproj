@@ -6,6 +6,10 @@
 
   <ItemGroup>
 	<PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
+	<PackageReference Include="Grpc.Tools" Version="2.40.0">
+	  <PrivateAssets>all</PrivateAssets>
+	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	</PackageReference>
 	<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
@@ -15,8 +19,7 @@
     <ProjectReference Include="..\ApiApplication.Domain\ApiApplication.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Grpc\" />
-  </ItemGroup>
-
+	<ItemGroup>
+		<Protobuf Include="Protos\movies.proto" />
+	</ItemGroup>
 </Project>

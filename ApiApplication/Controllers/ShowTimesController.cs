@@ -5,12 +5,11 @@ using ApiApplication.Responses;
 
 using Microsoft.AspNetCore.Mvc;
 
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace ApiApplication.Controllers {
-    [Route("api/auditorium/{auditoriumId}/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ShowTimesController : ControllerBase {
         private readonly ICreateShowTimeUseCase _createShowTimeUseCase;

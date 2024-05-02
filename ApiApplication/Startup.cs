@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ApiApplication.Conventions;
 
 namespace ApiApplication {
     public class Startup {
@@ -29,7 +30,11 @@ namespace ApiApplication {
                         .Build())
                     .AddRepository()
                     .AddMoviesApiClient()
-                    .AddControllers();
+                    .AddControllersWithViews(options =>
+                    {
+                        options.Conventions.Add(new DynamicRouteConvention());
+                    });
+            ;
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {

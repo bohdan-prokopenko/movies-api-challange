@@ -26,5 +26,19 @@ namespace ApiApplication.Domain.Entities {
         public ShowtimeEntity Showtime {
             get; set;
         }
+
+        public override bool Equals(object obj) {
+            return obj is TicketEntity entity &&
+                   Id.Equals(entity.Id) &&
+                   ShowtimeId == entity.ShowtimeId &&
+                   EqualityComparer<ICollection<SeatEntity>>.Default.Equals(Seats, entity.Seats) &&
+                   CreatedTime == entity.CreatedTime &&
+                   Paid == entity.Paid &&
+                   EqualityComparer<ShowtimeEntity>.Default.Equals(Showtime, entity.Showtime);
+        }
+
+        public override int GetHashCode() {
+            return HashCode.Combine(Id, ShowtimeId, Seats, CreatedTime, Paid, Showtime);
+        }
     }
 }

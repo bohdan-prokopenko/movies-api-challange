@@ -38,6 +38,7 @@ namespace ApiApplication.Repository.Database
         {
             Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<TicketEntity> ticket = _context.Tickets.Add(new TicketEntity
             {
+                Id = Guid.NewGuid(),
                 Showtime = showtime,
                 Seats = new List<SeatEntity>(selectedSeats)
             });

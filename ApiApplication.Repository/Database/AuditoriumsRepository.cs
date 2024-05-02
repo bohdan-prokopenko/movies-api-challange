@@ -21,6 +21,8 @@ namespace ApiApplication.Repository.Database
         {
             return await _context.Auditoriums
                 .Include(x => x.Seats)
+                .Include(x => x.Showtimes)
+                .ThenInclude(x => x.Movie)
                 .FirstOrDefaultAsync(x => x.Id == auditoriumId, cancel);
         }
     }

@@ -38,7 +38,8 @@ namespace ApiApplication {
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
-            _ = app.UseMiddleware<ErrorHandlingMiddleware>();
+            _ = app.UseMiddleware<ErrorHandlingMiddleware>()
+                .UseMiddleware<RequestTimeMiddleware>();
 
             if (env.IsDevelopment()) {
                 _ = app.UseDeveloperExceptionPage();

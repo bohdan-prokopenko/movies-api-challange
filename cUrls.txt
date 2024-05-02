@@ -22,3 +22,12 @@ curl --location 'https://localhost:8090/api/showtimes/1/reservations' \
     ],
     "row":1
 }'
+
+# Confirm reservation
+curl --location 'https://localhost:8090/api/payments' \
+--header 'accept: application/json' \
+--header 'Content-Type: application/json' \
+--header 'X-Apikey: 68e5fbda-9ec9-4858-97b2-4a8349764c63' \
+--data '{
+    "reservation": "03edba68-1c21-4f36-8321-f2e5ea89fc4f"
+}'

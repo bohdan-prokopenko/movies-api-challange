@@ -6,7 +6,8 @@ namespace ApiApplication.Domain.Extensions {
     public static class ServiceCollectionExtensions {
         public static IServiceCollection AddUseCases(this IServiceCollection services) {
             return services.AddScoped<ICreateShowTimeUseCase, CreateShowTimeUseCase>()
-                .AddScoped<ICreateReservationUseCase, CreateReservationUseCase>();
+                .AddScoped<ICreateReservationUseCase, CreateReservationUseCase>()
+                .AddScoped<ICreatePaymentUseCase, CreatePaymentUseCase>();
         }
     }
 }

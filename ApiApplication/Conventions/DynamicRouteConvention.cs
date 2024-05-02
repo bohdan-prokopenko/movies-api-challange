@@ -10,6 +10,7 @@ namespace ApiApplication.Conventions {
                 Template = controller.ControllerType.Name switch {
                     nameof(ShowTimesController) => "api/[controller]",
                     nameof(ReservationsController) => "api/showtimes/{showtimeId}/[controller]",
+                    nameof(PaymentsController) => "api/[controller]",
                     _ => throw new System.NotImplementedException()
                 }
             };

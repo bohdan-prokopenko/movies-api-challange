@@ -157,7 +157,6 @@ namespace ApiApplication.Domain.Tests.UseCases {
             _ = _showtimesRepositoryMock.Setup(r => r.GetWithTicketsByIdAsync(It.IsAny<int>(), It.IsAny<CancellationToken>())).ReturnsAsync(showTime);
             _ = _auditoriumsRepositoryMock.Setup(r => r.GetAsync(It.IsAny<int>(), It.IsAny<CancellationToken>())).ReturnsAsync(auditorium);
 
-
             Assert.Multiple(() => {
                 ReservationException ex = Assert.ThrowsAsync<ReservationException>(() => _createReservationUseCase.Execute(1, 1, seats.Select(s => s.SeatNumber)));
                 Assert.That(ex, Is.Not.Null);

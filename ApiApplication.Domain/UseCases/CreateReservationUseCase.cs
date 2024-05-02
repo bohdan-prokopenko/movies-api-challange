@@ -10,8 +10,6 @@ using System.Threading.Tasks;
 
 namespace ApiApplication.Domain.UseCases {
     internal sealed class CreateReservationUseCase : ICreateReservationUseCase {
-        private const int ExpirationTimeInMinutes = 10;
-
         private readonly IAuditoriumsRepository _auditoriumsRepository;
         private readonly IShowtimesRepository _showtimesRepository;
         private readonly ITicketsRepository _ticketsRepository;
@@ -44,7 +42,7 @@ namespace ApiApplication.Domain.UseCases {
 
             IEnumerable<TicketEntity> showtimeTickets = await _ticketsRepository.GetEnrichedAsync(showtimeId, token) ?? Enumerable.Empty<TicketEntity>();
             IEnumerable<SeatEntity> reservedSeats = showtimeTickets
-                .Where(t => t.Paid || t.CreatedTime > DateTime.UtcNow.AddMinutes(-ExpirationTimeInMinutes))
+                .Where(t => t.Paid || !t.IsExpired())
                 .SelectMany(t => t.Seats)
                 .Where(s => requestedSeats.Contains(s));
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace ApiApplication.Domain.Entities {
     public class TicketEntity {
+        private const int ExpirationTimeInMinutes = 10;
         public TicketEntity() {
             CreatedTime = DateTime.Now;
             Paid = false;
@@ -25,6 +26,10 @@ namespace ApiApplication.Domain.Entities {
         }
         public ShowtimeEntity Showtime {
             get; set;
+        }
+
+        public bool IsExpired() {
+            return (DateTime.UtcNow - CreatedTime).TotalMinutes >= ExpirationTimeInMinutes;
         }
 
         public override bool Equals(object obj) {

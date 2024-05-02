@@ -19,8 +19,8 @@ namespace ApiApplication.Controllers {
         }
 
         [HttpPost]
-        public async Task<ActionResult<CreateShowTimeResponseDto>> CreateShowtime([FromRoute] int auditoriumId, [FromBody] CreateShowtimeRequest request, CancellationToken token) {
-            ShowtimeEntity showtime = await _createShowTimeUseCase.Execute(auditoriumId, request.MovieId, request.SessionDate, token).ConfigureAwait(false);
+        public async Task<ActionResult<CreateShowTimeResponseDto>> CreateShowtime([FromBody] CreateShowtimeRequest request, CancellationToken token) {
+            ShowtimeEntity showtime = await _createShowTimeUseCase.Execute(request.Auditorium, request.MovieId, request.SessionDate, token).ConfigureAwait(false);
             return new CreateShowTimeResponseDto(showtime);
         }
     }

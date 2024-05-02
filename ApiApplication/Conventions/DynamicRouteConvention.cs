@@ -8,7 +8,7 @@ namespace ApiApplication.Conventions {
 
             controller.Selectors[0].AttributeRouteModel = new AttributeRouteModel {
                 Template = controller.ControllerType.Name switch {
-                    nameof(ShowTimesController) => "api/auditoriums/{auditoriumId}/[controller]",
+                    nameof(ShowTimesController) => "api/[controller]",
                     _ => throw new System.NotImplementedException()
                 }
             };

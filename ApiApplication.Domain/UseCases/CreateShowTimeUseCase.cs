@@ -27,7 +27,7 @@ namespace ApiApplication.Domain.UseCases {
                     return await SaveShowtime(auditoriumId, movie, sessionDate, cancel);
                 }
 
-                movie = await _moviesApi.GetById(movieId) ?? throw new EntityNotFoundException(movieId);
+                movie = await _moviesApi.GetById(movieId) ?? throw new EntityNotFoundException(movieId, nameof(MovieEntity));
                 movie = await _moviesRepository.CreateAsync(movie).ConfigureAwait(false);
 
                 return await SaveShowtime(auditoriumId, movie, sessionDate, cancel);

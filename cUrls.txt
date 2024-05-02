@@ -1,8 +1,9 @@
-curl --location 'https://localhost:8090/api/auditoriums/1/showtimes' \
+curl --location 'https://localhost:8090/api/showtimes' \
 --header 'accept: application/json' \
 --header 'Content-Type: application/json' \
 --header 'X-Apikey: 68e5fbda-9ec9-4858-97b2-4a8349764c63' \
 --data '{
     "sessionDate": "2024-04-28T15:30:00",
-    "movieId": "ID-test1"
+    "movieId": "ID-test1",
+    "auditorium": 1
 }'

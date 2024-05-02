@@ -73,7 +73,7 @@ namespace ApiApplication.Domain.Tests.UseCases {
             var auditoriumId = 1;
             var movieId = "someExternalMovieId";
 
-            _ = _moviesRepositoryMock.Setup(r => r.CreateAsync(It.IsAny<MovieEntity>(), It.IsAny<CancellationToken>())).ThrowsAsync(new EntityNotFoundException("someExternalMovieId"));
+            _ = _moviesRepositoryMock.Setup(r => r.CreateAsync(It.IsAny<MovieEntity>(), It.IsAny<CancellationToken>())).ThrowsAsync(new EntityNotFoundException("someExternalMovieId", nameof(MovieEntity)));
 
             _ = Assert.ThrowsAsync<EntityNotFoundException>(() => _createShowTimeUseCase.Execute(auditoriumId, movieId, sessionDate, None));
 

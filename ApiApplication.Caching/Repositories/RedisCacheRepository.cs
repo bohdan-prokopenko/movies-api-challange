@@ -22,7 +22,7 @@ namespace ApiApplication.Caching.Repositories {
         }
 
         public async Task<T> GetObjectFromCache<T>(string key, CancellationToken token) {
-            byte[] cachedData = await _cache.GetAsync(key, token);
+            var cachedData = await _cache.GetAsync(key, token);
 
             if (cachedData != null) {
                 using var memoryStream = new MemoryStream(cachedData);
@@ -38,14 +38,14 @@ namespace ApiApplication.Caching.Repositories {
                 using var memoryStream = new MemoryStream();
                 var serializer = new BinaryFormatter();
                 serializer.Serialize(memoryStream, value);
-                byte[] dataToCache = memoryStream.ToArray();
+                var dataToCache = memoryStream.ToArray();
 
                 var options = new DistributedCacheEntryOptions {
                     AbsoluteExpirationRelativeToNow = FromMinutes(minutes),
                 };
 
                 await _cache.SetAsync(key, dataToCache, options, token);
-            } catch(Exception ex) {
+            } catch (Exception ex) {
                 _logger.LogError(ex.Message, ex);
             }
         }

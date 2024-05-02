@@ -10,8 +10,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-using System.Net;
-
 namespace ApiApplication {
     public class Startup {
         public Startup(IConfiguration configuration) {
@@ -32,8 +30,7 @@ namespace ApiApplication {
                         .Build())
             .AddRepository()
                     .AddMoviesGrpcApiClient(builder => builder.Address(grpcConfig.GetValue<string>("Address")).ApiKey(grpcConfig.GetValue<string>("ApiKey")).Build())
-                    .AddControllersWithViews(options =>
-                    {
+                    .AddControllersWithViews(options => {
                         options.Conventions.Add(new DynamicRouteConvention());
                     });
             ;

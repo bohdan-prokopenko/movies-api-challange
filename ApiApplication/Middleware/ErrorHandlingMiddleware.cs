@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ApiApplication.Domain.Exceptions;
+
+using Microsoft.AspNetCore.Http;
+
 using Newtonsoft.Json;
+
+using System;
 using System.Net;
 using System.Threading.Tasks;
-using System;
-using ApiApplication.Domain.Exceptions;
 
 namespace ApiApplication.Middleware {
     internal class ErrorHandlingMiddleware {

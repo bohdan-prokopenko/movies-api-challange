@@ -36,7 +36,7 @@ namespace ApiApplication.Client.Http {
         }
 
         public MovieEntity ToEntity() {
-            bool success = int.TryParse(Year, out int year);
+            var success = int.TryParse(Year, out var year);
             var entity = new MovieEntity {
                 ExternalId = Id,
                 Title = Title,

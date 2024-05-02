@@ -1,5 +1,6 @@
-﻿using ApiApplication.Domain.Entities;
-using ApiApplication.Domain.Api;
+﻿using ApiApplication.Domain.Api;
+using ApiApplication.Domain.Entities;
+using ApiApplication.Domain.Repositories;
 
 using Microsoft.Extensions.Logging;
 
@@ -9,7 +10,6 @@ using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using ApiApplication.Domain.Repositories;
 
 namespace ApiApplication.Client.Http {
     internal class MoviesClientApi : IMoviesClientApi {

@@ -20,15 +20,15 @@ namespace ApiApplication.Domain.UseCases {
         }
 
         public async Task<ShowtimeEntity> Execute(int auditoriumId, string movieId, DateTime sessionDate, CancellationToken cancel) {
-                MovieEntity movie = await _moviesRepository.GetByExternalIdAsync(movieId, cancel).ConfigureAwait(false);
+            MovieEntity movie = await _moviesRepository.GetByExternalIdAsync(movieId, cancel).ConfigureAwait(false);
 
-                if (movie != null) {
-                    return await SaveShowtime(auditoriumId, movie, sessionDate, cancel);
-                }
-
-                movie = await _moviesApi.GetById(movieId) ?? throw new EntityNotFoundException(movieId, nameof(MovieEntity));
-                movie = await _moviesRepository.CreateAsync(movie).ConfigureAwait(false);
+            if (movie != null) {
                 return await SaveShowtime(auditoriumId, movie, sessionDate, cancel);
+            }
+
+            movie = await _moviesApi.GetById(movieId) ?? throw new EntityNotFoundException(movieId, nameof(MovieEntity));
+            movie = await _moviesRepository.CreateAsync(movie).ConfigureAwait(false);
+            return await SaveShowtime(auditoriumId, movie, sessionDate, cancel);
         }
 
         private async Task<ShowtimeEntity> SaveShowtime(int auditoriumId, MovieEntity movie, DateTime sessionDate, CancellationToken cancel) {

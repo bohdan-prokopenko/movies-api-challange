@@ -31,10 +31,10 @@ namespace ApiApplication.Client.Grpc {
             var metadata = new Metadata {
                 { "X-Apikey", _apiClientConfiguration.ApiKey }
             };
-            responseModel all = await client.GetByIdAsync(new IdRequest{Id = movieId}, headers: metadata, cancellationToken: token);
+            responseModel all = await client.GetByIdAsync(new IdRequest { Id = movieId }, headers: metadata, cancellationToken: token);
             _ = all.Data.TryUnpack<showResponse>(out showResponse data);
 
-            bool success = int.TryParse(data.Year, out int year);
+            var success = int.TryParse(data.Year, out var year);
             var entity = new MovieEntity {
                 ExternalId = data.Id,
                 Title = data.Title,
